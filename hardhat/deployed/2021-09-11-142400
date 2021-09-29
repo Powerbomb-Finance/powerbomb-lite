@@ -1,0 +1,16 @@
+Contract address for PowerBomb proxy (BTC): 0x36f4ac72A572ADa6D34C3A49c8a7FAfF9c9E4763
+Contract address for PowerBomb proxy (ETH): 0x62AcBBe9733c776F02AEBa1e254aC41A7170B397
+
+
+After Upgrade ETH (1602)
+Compiling 9 files with 0.8.7
+Compilation finished successfully
+New implementation contract for PowerBomb: 0xEcc07D269455b1934AAdefb06C0AAc2509c10a7e
+PowerBomb upgraded successfully
+New slippage percentage set succesfully. New slippage percentage:  BigNumber { _hex: '0x64', _isBigNumber: true }
+
+After Upgrade BTC (1602)
+New implementation contract for PowerBomb: 0x022517923c8591963336dE056fFE8d4BDE4e90E0
+PowerBomb upgraded successfully
+New slippage percentage set succesfully. New slippage percentage:  BigNumber { _hex: '0x64', _isBigNumber: true }
+

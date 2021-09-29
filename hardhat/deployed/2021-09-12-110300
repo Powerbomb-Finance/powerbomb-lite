@@ -1,0 +1,12 @@
+Contract address for PowerBomb proxy (BTC): 0x36f4ac72A572ADa6D34C3A49c8a7FAfF9c9E4763
+Contract address for PowerBomb proxy (ETH): 0x62AcBBe9733c776F02AEBa1e254aC41A7170B397
+
+
+After Upgrade ETH (1602)
+New implementation contract for PowerBomb (ETH): 0xE9d85d37834B056debDeCe0984941C3Ef33f1A55
+PowerBomb (ETH) upgraded successfully
+
+After Upgrade BTC (1602)
+New implementation contract for PowerBomb (BTC): 0xDdBb3c714FDcb4421B94a6C86D079B367eB0719a
+PowerBomb (BTC) upgraded successfully
+
