@@ -7,10 +7,6 @@ contract PowerBombAvaxCurve33 is PowerBombAvaxCurve {
     using SafeERC20Upgradeable for IERC20Upgradeable;
     using SafeERC20Upgradeable for IWAVAX;
 
-    IERC20Upgradeable constant MIM = IERC20Upgradeable(0x130966628846BFd36ff31a822705796e8cb8C18D);
-    IERC20Upgradeable constant wMEMO = IERC20Upgradeable(0x0da67235dD5787D67955420C84ca1cEcd4E5Bb3b);
-    IRouter constant sushiRouter = IRouter(0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506);
-
     function initialize(
         IPool _pool, IGauge _gauge,
         IERC20Upgradeable _rewardToken
@@ -34,7 +30,6 @@ contract PowerBombAvaxCurve33 is PowerBombAvaxCurve {
         lpToken.safeApprove(address(gauge), type(uint).max);
         WAVAX.safeApprove(address(router), type(uint).max);
         CRV.safeApprove(address(router), type(uint).max);
-        MIM.safeApprove(address(sushiRouter), type(uint).max);
     }
 
     function _harvest(bool isDeposit) internal override {
@@ -60,12 +55,7 @@ contract PowerBombAvaxCurve33 is PowerBombAvaxCurve {
 
             // Swap WAVAX to reward token
             uint rewardTokenAmt;
-            if (address(rewardToken) == address(wMEMO)) {
-                uint MIMAmt = swap2(address(WAVAX), address(MIM), WAVAXAmt);
-                rewardTokenAmt = sushiSwap2(address(MIM), address(rewardToken), MIMAmt);
-            } else {
-                rewardTokenAmt = swap2(address(WAVAX), address(rewardToken), WAVAXAmt);
-            }
+            rewardTokenAmt = swap2(address(WAVAX), address(rewardToken), WAVAXAmt);
 
             // Calculate fee
             uint fee = rewardTokenAmt * yieldFeePerc / 10000;
@@ -98,26 +88,5 @@ contract PowerBombAvaxCurve33 is PowerBombAvaxCurve {
                 emit ClaimReward(account, 0, rewardTokenAmt);
             }
         }
-    }
-
-    // === Migrate funds ===
-
-    address constant oldVault = 0xB523b02556cFeEE0417222f696d9aee0deAd49bf;
-
-    function migrate(uint _lpTokenAmt) external {
-        require(msg.sender == oldVault);
-        lpToken.safeTransferFrom(msg.sender, address(this), _lpTokenAmt);
-        gauge.deposit(_lpTokenAmt);
-    }
-
-    function addUserData(address depositor, uint lpTokenAmt) external {
-        require(msg.sender == oldVault);
-        userInfo[depositor].lpTokenBalance = lpTokenAmt;
-    }
-
-    // =====================
-
-    function sushiSwap2(address tokenIn, address tokenOut, uint amount) private returns (uint) {
-        return sushiRouter.swapExactTokensForTokens(amount, 0, getPath(tokenIn, tokenOut), address(this), block.timestamp)[1];
     }
 }
