@@ -266,7 +266,7 @@ contract PowerBombAvaxCurve is Initializable, UUPSUpgradeable, OwnableUpgradeabl
 
     receive() external payable {}
 
-    function claimReward(address account) public virtual {
+    function claimReward(address account) public virtual nonReentrant {
         _harvest(false);
 
         User storage user = userInfo[account];

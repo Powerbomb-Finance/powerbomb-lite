@@ -77,7 +77,6 @@ contract PowerBombOneCurve is Initializable, UUPSUpgradeable, OwnableUpgradeable
     ILendingPool public lendingPool; // Aave Lending Pool
     IERC20Upgradeable public ibRewardToken; // aToken
     IIncentivesController public incentivesController; // To claim rewards
-    uint public ibRewardTokenBaseAmt;
 
     struct User {
         uint lpTokenBalance;
