@@ -108,7 +108,7 @@ contract PowerBombFtmCurveGeist is PowerBombAvaxCurve {
         emit Withdraw(address(token), amountOutToken);
     }
 
-    function _harvest(bool isDeposit) internal override {
+    function _harvest(bool) internal override {
         // Collect CRV and WFTM from Curve
         gauge.claim_rewards();
         uint currentPool = gauge.balanceOf(address(this));
@@ -122,8 +122,6 @@ contract PowerBombFtmCurveGeist is PowerBombAvaxCurve {
 
             uint GEISTAmt = GEIST.balanceOf(address(this));
             if (GEISTAmt > 0) WFTMAmt += swap2(address(GEIST), address(WFTM), GEISTAmt);
-
-            isDeposit; // To silence warning
 
             // Swap WFTM to reward token
             uint rewardTokenAmt = swap2(address(WFTM), address(rewardToken), WFTMAmt);
